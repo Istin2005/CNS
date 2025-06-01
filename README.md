@@ -33,51 +33,35 @@ Implementation using C or pyhton code
 Developed by: Istin B
 Register number: 212223040068
 ```
-```c
-#include <stdio.h>
-#include <stdlib.h>
- 
-// Function to perform Caesar Cipher encryption
- void caesarEncrypt(char *text, int key) {
-   for (int i = 0; text[i] != '\0'; i++) { char c = text[i];
-// Check if the character is an uppercase letter 
-    if (c >= 'A' && c <= 'Z') {
-    text[i] = ((c - 'A' + key) % 26 + 26) % 26 + 'A';
-    }
-// Check if the character is a lowercase letter
-    else if (c >= 'a' && c <= 'z') {
-        text[i] = ((c - 'a' + key) % 26 + 26) % 26 + 'a';
-    }
-// Ignore non-alphabetic characters
-    }
-}
+```
+def caesar_cipher(text, shift, encrypt=True):
+    result = ""
+    
+    for char in text:
+        if char.isalpha():
+            shift_amount = shift if encrypt else -shift
+            base = ord('A') if char.isupper() else ord('a')
+            result += chr((ord(char) - base + shift_amount) % 26 + base)
+        else:
+            result += char
+            
+    return result
 
-// Function to perform Caesar Cipher decryption 
-void caesarDecrypt(char *text, int key) {
-// Decryption is the same as encryption with a negative key 
-caesarEncrypt(text, -key);
-}
+plain_text = "Anna University"
+shift_value = 5
 
-int main() {
-char message[100]; // Declare a character array to store the message
-int key;
-printf("Enter the message to encrypt: ");
-fgets(message, sizeof(message), stdin); // Read input from the user
-printf("Enter the Caesar Cipher key (an integer): ");
-scanf("%d", &key); // Read the key from the user
-// Encrypt the message using the Caesar Cipher
-caesarEncrypt(message, key);
-printf("Encrypted Message: %s", message);
-// Decrypt the message back to the original
- caesarDecrypt(message, key);
-printf("Decrypted Message: %s", message);
-return 0;
-}
+encrypted_text = caesar_cipher(plain_text, shift_value)
+decrypted_text = caesar_cipher(encrypted_text, shift_value, encrypt=False)
+
+print("Encrypted:", encrypted_text)
+print("Decrypted:", decrypted_text)
+
 ```
 
 ## OUTPUT:
 
-![image](https://github.com/user-attachments/assets/1dd39106-e5f7-405a-9a43-fb9f201330a7)
+![image](https://github.com/user-attachments/assets/6365d4d9-4e21-4e0d-8c55-f7dc4e18e5b2)
+
 
 
 
